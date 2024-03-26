@@ -1,6 +1,9 @@
+using eTickets.Infrasturcture.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace eTicketsUI
 {
-	public class Program
+    public class Program
 	{
 		public static void Main(string[] args)
 		{
@@ -8,14 +11,24 @@ namespace eTicketsUI
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+			builder.Services.AddDbContext<AppDbContext>(options =>
+			{
+				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+			});
+			
 
 			var app = builder.Build();
+			using var scope = app.Services.CreateScope();
+			var service = scope.ServiceProvider;
+			var _dbContext = service.GetRequiredService<AppDbContext>();
+			AppDbSeed.Seed(_dbContext);
 
-			// Configure the HTTP request pipeline.
-			if (!app.Environment.IsDevelopment())
+				// Configure the HTTP request pipeline.
+				if (!app.Environment.IsDevelopment())
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
+			
 			app.UseStaticFiles();
 
 			app.UseRouting();
