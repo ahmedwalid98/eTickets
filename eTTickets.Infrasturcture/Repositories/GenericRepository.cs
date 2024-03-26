@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eTicket.Domain.Entities;
 using eTicket.Domain.Repositories;
 using eTickets.Infrasturcture.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace eTickets.Infrasturcture.Repositories
 {
@@ -18,29 +19,32 @@ namespace eTickets.Infrasturcture.Repositories
 			context = _context;
 		}
 
-		public Task Add(T entity)
+		public async Task<T> Add(T entity)
 		{
-			throw new NotImplementedException();
+			await context.Set<T>().AddAsync(entity);
+			return entity;
 		}
 
-		public Task Delete(int id)
+		public void Delete(T entity)
 		{
-			throw new NotImplementedException();
+			context.Set<T>().Remove(entity);
 		}
 
-		public Task<IEnumerable<T>> GetAll()
+		public async Task<IEnumerable<T>> GetAll()
 		{
-			throw new NotImplementedException();
+			var query = await context.Set<T>().ToListAsync();
+			return query;
 		}
 
-		public Task<T> GetById(int id)
+		public async Task<T> GetById(int id)
 		{
-			throw new NotImplementedException();
+			return await context.Set<T>().SingleOrDefaultAsync(m => m.Id == id);
 		}
 
-		public Task Update(int id, T entity)
+		public T Update(T entity)
 		{
-			throw new NotImplementedException();
+			context.Set<T>().Update(entity);
+			return entity;
 		}
 	}
 }

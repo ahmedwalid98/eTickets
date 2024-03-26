@@ -11,8 +11,8 @@ namespace eTicket.Domain.Repositories
 	{
 		Task<IEnumerable<T>> GetAll();
 		Task<T> GetById(int id);
-		Task Add(T entity);
-		Task Update(int id,T entity);
-		Task Delete(int id);
+		Task<T> Add(T entity);
+		T Update(T entity);
+		void Delete(T entity);
 	}
 }
