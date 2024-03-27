@@ -9,10 +9,10 @@ namespace eTicket.Domain
 {
 	public interface IUnitOfWork: IDisposable
 	{
-        public IMovieRepository MovieRepository { get; }
-        public IProducerRepository ProducerRepository { get; }
-        public IActorRepository ActorRepository { get; }
-        public ICinemaRepository CinemaRepository { get; }
+        IMovieRepository MovieRepository { get; }
+        IProducerRepository ProducerRepository { get; }
+        IActorRepository ActorRepository { get; }
+        ICinemaRepository CinemaRepository { get; }
         int Commit();
 
 	}
