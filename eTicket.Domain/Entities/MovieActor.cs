@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using eTickets.Domain.Models;
 
-namespace eTickets.Domain.Entities
+
+namespace eTicket.Domain.Entities
 {
 	public class MovieActor
 	{

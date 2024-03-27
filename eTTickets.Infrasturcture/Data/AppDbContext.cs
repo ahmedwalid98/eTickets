@@ -4,8 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using eTickets.Domain.Entities;
-using eTickets.Domain.Models;
+using eTicket.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTickets.Infrasturcture.Data

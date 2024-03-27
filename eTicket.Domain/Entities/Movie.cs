@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using eTicket.Domain.Entities;
 using eTickets.Domain.Enums;
-using eTickets.Domain.Models;
 
-namespace eTickets.Domain.Entities
+
+namespace eTicket.Domain.Entities
 {
 	public class Movie : BaseEntity
 	{

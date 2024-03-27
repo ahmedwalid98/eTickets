@@ -4,10 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using eTicket.Domain.Entities;
-using eTickets.Domain.Entities;
 
-namespace eTickets.Domain.Models
+
+namespace eTicket.Domain.Entities
 {
 	public class Producer : BaseEntity
 	{

@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain.Entities;
 
-namespace eTicket.Domain.Repositories
+namespace eTicket.Domain.Services
 {
-	public interface IMovieRepository: IGenericRepository<Movie>
-	{
-	}
+    public interface IActorService
+    {
+        Task<IEnumerable<Actor>> GetAllActors();
+    }
 }
