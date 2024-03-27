@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\eTickets.Application\eTickets.Application.csproj" />
     <ProjectReference Include="..\eTTickets.Infrasturcture\eTickets.Infrasturcture.csproj" />
   </ItemGroup>
 

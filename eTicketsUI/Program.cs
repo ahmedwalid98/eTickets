@@ -1,4 +1,6 @@
 using eTicket.Domain;
+using eTicket.Domain.Services;
+using eTickets.Application.Services;
 using eTickets.Infrasturcture;
 using eTickets.Infrasturcture.Data;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +15,8 @@ namespace eTicketsUI
 
 			// Add services to the container.
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-			builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IActorService, ActorService>();
+            builder.Services.AddControllersWithViews();
 			builder.Services.AddDbContext<AppDbContext>(options =>
 			{
 				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
