@@ -1,3 +1,5 @@
+using eTicket.Domain;
+using eTickets.Infrasturcture;
 using eTickets.Infrasturcture.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +12,7 @@ namespace eTicketsUI
 			var builder = WebApplication.CreateBuilder(args);
 
 			// Add services to the container.
+			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 			builder.Services.AddControllersWithViews();
 			builder.Services.AddDbContext<AppDbContext>(options =>
 			{
