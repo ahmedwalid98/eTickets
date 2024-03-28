@@ -17,6 +17,7 @@ namespace eTicketsUI
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IActorService, ActorService>();
 			builder.Services.AddScoped<IProducerService, ProducerService>();
+			builder.Services.AddScoped<ICinemaService, CinemaService>();
             builder.Services.AddControllersWithViews();
 			builder.Services.AddDbContext<AppDbContext>(options =>
 			{
