@@ -10,4 +10,10 @@
     <ProjectReference Include="..\eTicket.Domain\eTicket.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="eTicketsUI">
+      <HintPath>..\eTicketsUI\obj\Debug\net8.0\eTicketsUI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
