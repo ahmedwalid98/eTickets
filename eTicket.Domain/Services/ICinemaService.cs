@@ -10,5 +10,6 @@ namespace eTicket.Domain.Services
     public interface ICinemaService
     {
         Task<IEnumerable<Cinema>> GetAllCinemas();
+        Task<Cinema> GetCinema(int id); 
     }
 }
