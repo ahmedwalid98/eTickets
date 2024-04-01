@@ -7,6 +7,7 @@ using eTicket.Domain.Entities;
 using eTicket.Domain.Repositories;
 using eTickets.Infrasturcture.Data;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace eTickets.Infrasturcture.Repositories
 {
@@ -32,8 +33,17 @@ namespace eTickets.Infrasturcture.Repositories
 
 		public async Task<IEnumerable<T>> GetAll()
 		{
-			var query = await context.Set<T>().ToListAsync();
-			return query;
+			
+			
+			if (typeof(T) == typeof(Movie))
+			{
+				return (IEnumerable<T>)await context.Movies.Include(m => m.Cinema).AsNoTracking().ToListAsync();
+
+            }else
+			{
+                return await context.Set<T>().AsNoTracking().ToListAsync();
+            }
+			
 		}
 
 		public async Task<T> GetById(int id)
