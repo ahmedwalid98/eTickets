@@ -22,5 +22,10 @@ namespace eTickets.Application.Services
         {
             return await _unitOfWork.CinemaRepository.GetAll();
         }
+
+        public async Task<Cinema> GetCinema(int id)
+        {
+            return await _unitOfWork.CinemaRepository.GetById(id);
+        }
     }
 }
