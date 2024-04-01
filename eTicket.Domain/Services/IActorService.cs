@@ -10,5 +10,6 @@ namespace eTicket.Domain.Services
     public interface IActorService
     {
         Task<IEnumerable<Actor>> GetAllActors();
+        Task<Actor> GetActorById(int id);
     }
 }
