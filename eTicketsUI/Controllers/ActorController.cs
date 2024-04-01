@@ -1,4 +1,5 @@
 ﻿using eTicket.Domain;
+using eTicket.Domain.Entities;
 using eTicket.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,5 +21,23 @@ namespace eTickets.UI.Controllers
 			var actors = await _actorService.GetAllActors();
 			return View(actors);
 		}
+		public async Task<IActionResult> Detail(int id)
+		{
+			var actor = await _actorService.GetActorById(id);
+			return View(actor);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Edit(int id)
+		{
+			var actor = await _actorService.GetActorById(id);
+			return View(actor);
+		}
+		[HttpPost]
+		public async Task<IActionResult> Edit([FromRoute] int id, Actor actor)
+		{
+            var _actor = await _actorService.GetActorById(id);
+            return View(_actor);
+        }
 	}
 }
