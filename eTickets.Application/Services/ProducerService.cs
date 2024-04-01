@@ -22,5 +22,10 @@ namespace eTickets.Application.Services
         {
             return await _unitOfWork.ProducerRepository.GetAll();
         }
+
+        public async Task<Producer> GetProducerById(int id)
+        {
+            return await _unitOfWork.ProducerRepository.GetById(id);
+        }
     }
 }
