@@ -10,5 +10,6 @@ namespace eTicket.Domain.Services
     public interface IProducerService
     {
         Task<IEnumerable<Producer>> GetAllProducers();
+        Task<Producer> GetProducerById(int id);
     }
 }
