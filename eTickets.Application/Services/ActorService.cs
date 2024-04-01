@@ -18,9 +18,15 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<Actor> GetActorById(int id)
+        {
+            return await _unitOfWork.ActorRepository.GetById(id);
+        }
+
         public async Task<IEnumerable<Actor>> GetAllActors()
         {
             return await _unitOfWork.ActorRepository.GetAll();
         }
+
     }
 }
