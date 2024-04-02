@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eTicket.Domain;
 using eTicket.Domain.Entities;
 using eTicket.Domain.Services;
+using eTicketsUI.ViewModels;
 
 namespace eTickets.Application.Services
 {
@@ -28,5 +29,20 @@ namespace eTickets.Application.Services
             return await _unitOfWork.ActorRepository.GetAll();
         }
 
+        public async Task<Actor> UpdateActor(int id, EditActorVM actor)
+        {
+            var oldActor = await GetActorById(id);
+
+            if (oldActor != null)
+            {
+                oldActor.ProfilePictureUrl = actor.ProfilePictureUrl;
+                oldActor.FullName = actor.FullName;
+                oldActor.Bio = actor.Bio;
+                _unitOfWork.ActorRepository.Update(oldActor);
+                _unitOfWork.Commit();
+            }
+            return oldActor;
+
+        }
     }
 }

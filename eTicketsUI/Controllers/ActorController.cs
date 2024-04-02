@@ -1,6 +1,7 @@
 ﻿using eTicket.Domain;
 using eTicket.Domain.Entities;
 using eTicket.Domain.Services;
+using eTicketsUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eTickets.UI.Controllers
@@ -34,10 +35,15 @@ namespace eTickets.UI.Controllers
 			return View(actor);
 		}
 		[HttpPost]
-		public async Task<IActionResult> Edit([FromRoute] int id, Actor actor)
+		public async Task<IActionResult> Edit([FromRoute] int id, EditActorVM newActor)
 		{
-            var _actor = await _actorService.GetActorById(id);
-            return View(_actor);
+            var actor = await _actorService.GetActorById(id);
+			if (!ModelState.IsValid)
+			{
+				return View(actor);
+			}
+			actor = await _actorService.UpdateActor(id, newActor);
+            return View(actor);
         }
 	}
 }
