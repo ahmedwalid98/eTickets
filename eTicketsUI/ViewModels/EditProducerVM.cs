@@ -2,7 +2,7 @@
 
 namespace eTicketsUI.ViewModels
 {
-    public class EditActorVM
+    public class EditProducerVM
     {
         [Required(ErrorMessage = "Profile Picture is required")]
         public string ProfilePictureUrl { get; set; }
@@ -11,6 +11,5 @@ namespace eTicketsUI.ViewModels
         public string FullName { get; set; }
         [Required(ErrorMessage = "Bio is required")]
         public string Bio { get; set; }
-
     }
 }

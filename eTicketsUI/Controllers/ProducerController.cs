@@ -1,4 +1,5 @@
 ﻿using eTicket.Domain.Services;
+using eTicketsUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eTickets.UI.Controllers
@@ -14,12 +15,29 @@ namespace eTickets.UI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var producers = await _producerService.GetAllProducers(); 
+            var producers = await _producerService.GetAllProducers();
             return View(producers);
         }
         public async Task<IActionResult> Detail(int id)
         {
             var producer = await _producerService.GetProducerById(id);
+            return View(producer);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var producer = await _producerService.GetProducerById(id);
+            return View(producer);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditProducerVM newProducer)
+        {
+            var producer = await _producerService.GetProducerById(id);
+            if (!ModelState.IsValid)
+            {
+                return View(producer);
+            }
+            producer = await _producerService.UpdateProducer(id, newProducer);
             return View(producer);
         }
     }

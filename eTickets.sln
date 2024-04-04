@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eTicketsUI", "eTicketsUI\eTicketsUI.csproj", "{68BE11A8-4412-4A87-941B-A2AEC19EC40F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{714E0F07-5DBA-4B34-A498-3EBA75ABED0E} = {714E0F07-5DBA-4B34-A498-3EBA75ABED0E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eTickets.Infrasturcture", "eTTickets.Infrasturcture\eTickets.Infrasturcture.csproj", "{8AC05BC3-3DCF-476D-B21E-04505F63DDFA}"
 EndProject

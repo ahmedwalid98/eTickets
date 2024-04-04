@@ -12,6 +12,6 @@ namespace eTicket.Domain.Services
     {
         Task<IEnumerable<Actor>> GetAllActors();
         Task<Actor> GetActorById(int id);
-        Task<Actor> UpdateActor(int id,EditActorVM actor);
+        Task<Actor> UpdateActor(int id, EditActorVM actor);
     }
 }

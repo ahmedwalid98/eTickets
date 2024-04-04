@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eTicket.Domain;
 using eTicket.Domain.Entities;
 using eTicket.Domain.Services;
+using eTicketsUI.ViewModels;
 
 namespace eTickets.Application.Services
 {
@@ -18,6 +19,7 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
+
         public async Task<IEnumerable<Producer>> GetAllProducers()
         {
             return await _unitOfWork.ProducerRepository.GetAll();
@@ -26,6 +28,20 @@ namespace eTickets.Application.Services
         public async Task<Producer> GetProducerById(int id)
         {
             return await _unitOfWork.ProducerRepository.GetById(id);
+        }
+
+        public async Task<Producer> UpdateProducer(int id, EditProducerVM newProducer)
+        {
+            var producer = await GetProducerById(id);
+            if (producer != null)
+            {
+                producer.FullName = newProducer.FullName;
+                producer.Bio = newProducer.Bio;
+                producer.ProfilePictureUrl = newProducer.ProfilePictureUrl;
+                _unitOfWork.ProducerRepository.Update(producer);
+                _unitOfWork.Commit();
+            }
+            return producer;
         }
     }
 }
