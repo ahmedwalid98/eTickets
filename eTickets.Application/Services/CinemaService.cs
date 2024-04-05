@@ -27,5 +27,19 @@ namespace eTickets.Application.Services
         {
             return await _unitOfWork.CinemaRepository.GetById(id);
         }
+
+        public async Task<Cinema> UpdateCinema(int id, Cinema newCinema)
+        {
+            var cinema = await GetCinema(id);
+            if (newCinema != null)
+            {
+                cinema.CinemaLogo = newCinema.CinemaLogo;
+                cinema.Name = newCinema.Name;
+                cinema.Description = newCinema.Description;
+                _unitOfWork.CinemaRepository.Update(cinema);
+                _unitOfWork.Commit();
+            }
+            return cinema;
+        }
     }
 }

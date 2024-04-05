@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using eTicket.Domain;
 using eTicket.Domain.Entities;
 using eTicket.Domain.Services;
-using eTicketsUI.ViewModels;
-
+/*using eTicketsUI.ViewModels;
+*/
 namespace eTickets.Application.Services
 {
     public class ProducerService : IProducerService
@@ -30,7 +30,7 @@ namespace eTickets.Application.Services
             return await _unitOfWork.ProducerRepository.GetById(id);
         }
 
-        public async Task<Producer> UpdateProducer(int id, EditProducerVM newProducer)
+        public async Task<Producer> UpdateProducer(int id, Producer newProducer)
         {
             var producer = await GetProducerById(id);
             if (producer != null)

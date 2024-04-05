@@ -10,9 +10,14 @@ namespace eTicket.Domain.Entities
 {
 	public class Producer : BaseEntity
 	{
-		public string ProfilePictureUrl { get; set; } = string.Empty;
-		public string FullName { get; set; }
-		public string Bio { get; set; }
-		public ICollection<Movie> Movies { get; set; }
+        [Required]
+        public string ProfilePictureUrl { get; set; } = string.Empty;
+        [Required]
+        [MinLength(3)]
+        [MaxLength(50)]
+        public string FullName { get; set; }
+        [Required]
+        public string Bio { get; set; }
+        public ICollection<Movie> Movies { get; set; }
 	}
 }

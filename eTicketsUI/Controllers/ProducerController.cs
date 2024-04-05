@@ -1,4 +1,5 @@
-﻿using eTicket.Domain.Services;
+﻿using eTicket.Domain.Entities;
+using eTicket.Domain.Services;
 using eTicketsUI.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,13 +31,9 @@ namespace eTickets.UI.Controllers
             return View(producer);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditProducerVM newProducer)
+        public async Task<IActionResult> Edit(int id, Producer newProducer)
         {
             var producer = await _producerService.GetProducerById(id);
-            if (!ModelState.IsValid)
-            {
-                return View(producer);
-            }
             producer = await _producerService.UpdateProducer(id, newProducer);
             return View(producer);
         }

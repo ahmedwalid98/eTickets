@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using eTicket.Domain;
 using eTicket.Domain.Entities;
 using eTicket.Domain.Services;
-using eTicketsUI.ViewModels;
-
+/*using eTicketsUI.ViewModels;
+*/
 namespace eTickets.Application.Services
 {
     public class ActorService : IActorService
@@ -29,7 +29,7 @@ namespace eTickets.Application.Services
             return await _unitOfWork.ActorRepository.GetAll();
         }
 
-        public async Task<Actor> UpdateActor(int id, EditActorVM actor)
+        public async Task<Actor> UpdateActor(int id, Actor actor)
         {
             var oldActor = await GetActorById(id);
 

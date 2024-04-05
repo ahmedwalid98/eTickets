@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain.Entities;
-using eTicketsUI.ViewModels;
 
 namespace eTicket.Domain.Services
 {
@@ -12,6 +11,6 @@ namespace eTicket.Domain.Services
     {
         Task<IEnumerable<Producer>> GetAllProducers();
         Task<Producer> GetProducerById(int id);
-        Task<Producer> UpdateProducer(int id, EditProducerVM newProducer);
+        Task<Producer> UpdateProducer(int id, Producer newProducer);
     }
 }
