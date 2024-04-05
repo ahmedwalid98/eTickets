@@ -1,5 +1,5 @@
 using eTicket.Domain;
-using eTicket.Domain.Services;
+using eTickets.Application.Interfaces;
 using eTickets.Application.Services;
 using eTickets.Infrasturcture;
 using eTickets.Infrasturcture.Data;

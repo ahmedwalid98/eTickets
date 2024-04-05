@@ -1,5 +1,6 @@
 ﻿using eTicket.Domain.Entities;
-using eTicket.Domain.Services;
+using eTickets.Application.Core.Request;
+using eTickets.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eTickets.UI.Controllers
@@ -31,10 +32,14 @@ namespace eTickets.UI.Controllers
             return View(cinema);
         }
         [HttpPost]
-        public async Task<IActionResult> EditAsync([FromRoute] int id, Cinema newCinema)
+        public async Task<IActionResult> EditAsync([FromRoute] int id, CinemaReq newCinema)
             
         {
             var cinema = await _cinemaService.GetCinema(id);
+            if (!ModelState.IsValid)
+            {
+                return View(cinema);
+            }
             cinema = await _cinemaService.UpdateCinema(id,newCinema);
             return View(cinema);
         }

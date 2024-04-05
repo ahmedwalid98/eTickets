@@ -1,5 +1,5 @@
-﻿using eTicket.Domain.Services;
-using eTicketsUI.ViewModels;
+﻿using eTickets.Application.Interfaces;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace eTickets.UI.Controllers
@@ -16,22 +16,8 @@ namespace eTickets.UI.Controllers
         public async Task<IActionResult> Index()
         {
             var movies = await _movieService.GetAllMovies();
-            var moviesVM = new List<GetMovies>();
-            foreach (var movie in movies)
-            {
-                moviesVM.Add(new GetMovies
-                {
-                    Id = movie.Id,
-                    Name = movie.Name,
-                    Description = movie.Description,
-                    ImageUrl = movie.ImageUrl,
-                    Category = nameof(movie.MovieCategory),
-                    CinemaName = movie.Cinema.Name,
-                    Price = movie.Price,
-
-                });
-            }
-            return View(moviesVM);
+            
+            return View(movies);
         }
     }
 }

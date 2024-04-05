@@ -1,6 +1,5 @@
 ﻿using eTicket.Domain.Entities;
-using eTicket.Domain.Services;
-using eTicketsUI.ViewModels;
+using eTickets.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eTickets.UI.Controllers
