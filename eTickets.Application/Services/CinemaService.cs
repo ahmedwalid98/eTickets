@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain;
 using eTicket.Domain.Entities;
-using eTicket.Domain.Services;
+using eTickets.Application.Core.Dtos;
+using eTickets.Application.Core.Request;
+using eTickets.Application.Interfaces;
 
 namespace eTickets.Application.Services
 {
@@ -18,19 +20,33 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Cinema>> GetAllCinemas()
+        public async Task<IEnumerable<CinemaDto>> GetAllCinemas()
         {
-            return await _unitOfWork.CinemaRepository.GetAll();
+            var cinemas = await _unitOfWork.CinemaRepository.GetAll();
+            return cinemas.Select(cinema => new CinemaDto
+            {
+                Id = cinema.Id,
+                Name = cinema.Name,
+                CinemaLogo = cinema.CinemaLogo,
+                Description = cinema.Description
+            });
         }
 
-        public async Task<Cinema> GetCinema(int id)
+        public async Task<CinemaDto> GetCinema(int id)
         {
-            return await _unitOfWork.CinemaRepository.GetById(id);
+            var cinema = await _unitOfWork.CinemaRepository.GetById(id);
+            return new CinemaDto
+            {
+                Id = cinema.Id,
+                Name = cinema.Name,
+                CinemaLogo = cinema.CinemaLogo,
+                Description = cinema.Description
+            };
         }
 
-        public async Task<Cinema> UpdateCinema(int id, Cinema newCinema)
+        public async Task<CinemaDto> UpdateCinema(int id, CinemaReq newCinema)
         {
-            var cinema = await GetCinema(id);
+            var cinema = await _unitOfWork.CinemaRepository.GetById(id);
             if (newCinema != null)
             {
                 cinema.CinemaLogo = newCinema.CinemaLogo;
@@ -39,7 +55,13 @@ namespace eTickets.Application.Services
                 _unitOfWork.CinemaRepository.Update(cinema);
                 _unitOfWork.Commit();
             }
-            return cinema;
+            return new CinemaDto
+            {
+                Id = cinema.Id,
+                Name = cinema.Name,
+                CinemaLogo = cinema.CinemaLogo,
+                Description = cinema.Description
+            };
         }
     }
 }

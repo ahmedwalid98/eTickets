@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain;
 using eTicket.Domain.Entities;
-using eTicket.Domain.Services;
-/*using eTicketsUI.ViewModels;
-*/
+using eTickets.Application.Interfaces;
+
 namespace eTickets.Application.Services
 {
     public class ProducerService : IProducerService

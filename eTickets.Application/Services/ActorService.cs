@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain;
 using eTicket.Domain.Entities;
-using eTicket.Domain.Services;
-/*using eTicketsUI.ViewModels;
-*/
+using eTickets.Application.Core.Dtos;
+using eTickets.Application.Core.Request;
+using eTickets.Application.Interfaces;
+
 namespace eTickets.Application.Services
 {
     public class ActorService : IActorService
@@ -19,19 +20,33 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Actor> GetActorById(int id)
+        public async Task<ActorDto> GetActorById(int id)
         {
-            return await _unitOfWork.ActorRepository.GetById(id);
+            var actor = await _unitOfWork.ActorRepository.GetById(id);
+            return new ActorDto
+            {
+                Id = actor.Id,
+                ProfilePictureUrl = actor.ProfilePictureUrl,
+                FullName = actor.FullName,
+                Bio = actor.Bio,
+            };
         }
 
-        public async Task<IEnumerable<Actor>> GetAllActors()
+        public async Task<IEnumerable<ActorDto>> GetAllActors()
         {
-            return await _unitOfWork.ActorRepository.GetAll();
+            var actors = await _unitOfWork.ActorRepository.GetAll();
+            return actors.Select(x => new ActorDto
+            {
+                Id = x.Id,
+                ProfilePictureUrl = x.ProfilePictureUrl,
+                FullName = x.FullName,
+                Bio = x.Bio,
+            });
         }
 
-        public async Task<Actor> UpdateActor(int id, Actor actor)
+        public async Task<ActorDto> UpdateActor(int id, ActorReq actor)
         {
-            var oldActor = await GetActorById(id);
+            var oldActor = await _unitOfWork.ActorRepository.GetById(id);
 
             if (oldActor != null)
             {
@@ -41,7 +56,13 @@ namespace eTickets.Application.Services
                 _unitOfWork.ActorRepository.Update(oldActor);
                 _unitOfWork.Commit();
             }
-            return oldActor;
+            return new ActorDto
+            {
+                Id = oldActor.Id,
+                ProfilePictureUrl = oldActor.ProfilePictureUrl,
+                FullName = oldActor.FullName,
+                Bio = oldActor.Bio,
+            };
 
         }
     }

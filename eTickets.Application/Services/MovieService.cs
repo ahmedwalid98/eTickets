@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain;
 using eTicket.Domain.Entities;
-using eTicket.Domain.Services;
+using eTickets.Application.Core.Dtos;
+using eTickets.Application.Interfaces;
 
 namespace eTickets.Application.Services
 {
@@ -18,11 +19,22 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Movie>> GetAllMovies()
+        public async Task<IEnumerable<MoviesDto>> GetAllMovies()
         {
             var movies = await _unitOfWork.MovieRepository.GetAll();
-            
-            return movies;
+
+            var moviesDto = movies.Select(movie => new MoviesDto
+            {
+                Id = movie.Id,
+                Price = movie.Price,
+                Description = movie.Description,
+                Name = movie.Name,
+                ImageUrl = movie.ImageUrl,
+                Category = nameof(movie.MovieCategory),
+                CinemaName = movie.Name
+            });
+
+            return moviesDto;
         }
     }
 }
