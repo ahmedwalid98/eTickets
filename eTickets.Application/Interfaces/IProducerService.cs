@@ -1,4 +1,5 @@
-﻿using eTicket.Domain.Entities;
+﻿using eTickets.Application.Core.Dtos;
+using eTickets.Application.Core.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace eTickets.Application.Interfaces
 {
     public interface IProducerService
     {
-        Task<IEnumerable<Producer>> GetAllProducers();
-        Task<Producer> GetProducerById(int id);
-        Task<Producer> UpdateProducer(int id, Producer newProducer);
+        Task<IEnumerable<ProducerDto>> GetAllProducers();
+        Task<ProducerDto> GetProducerById(int id);
+        Task<ProducerDto> UpdateProducer(int id, ProducerReq newProducer);
     }
 }
