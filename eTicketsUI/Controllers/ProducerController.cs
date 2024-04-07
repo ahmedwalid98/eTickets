@@ -1,4 +1,5 @@
 ﻿using eTicket.Domain.Entities;
+using eTickets.Application.Core.Request;
 using eTickets.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +31,7 @@ namespace eTickets.UI.Controllers
             return View(producer);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, Producer newProducer)
+        public async Task<IActionResult> Edit(int id, ProducerReq newProducer)
         {
             var producer = await _producerService.GetProducerById(id);
             producer = await _producerService.UpdateProducer(id, newProducer);
