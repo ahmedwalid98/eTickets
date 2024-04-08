@@ -32,7 +32,7 @@ namespace eTickets.UI.Controllers
             return View(cinema);
         }
         [HttpPost]
-        public async Task<IActionResult> EditAsync([FromRoute] int id, CinemaReq newCinema)
+        public async Task<IActionResult> Edit([FromRoute] int id, CinemaReq newCinema)
             
         {
             var cinema = await _cinemaService.GetCinema(id);
@@ -42,6 +42,21 @@ namespace eTickets.UI.Controllers
             }
             cinema = await _cinemaService.UpdateCinema(id,newCinema);
             return View(cinema);
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(CinemaReq newCinema)
+        {
+            if (ModelState.IsValid)
+            {
+                await _cinemaService.AddCinema(newCinema);
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
         }
     }
 }

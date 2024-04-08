@@ -13,5 +13,6 @@ namespace eTickets.Application.Interfaces
         Task<IEnumerable<CinemaDto>> GetAllCinemas();
         Task<CinemaDto> GetCinema(int id);
         Task<CinemaDto> UpdateCinema(int id, CinemaReq newCinema);
+        Task<CinemaDto> AddCinema(CinemaReq newCinema);
     }
 }

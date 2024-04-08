@@ -20,6 +20,24 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<CinemaDto> AddCinema(CinemaReq newCinema)
+        {
+            var cinema = new Cinema
+            {
+                CinemaLogo = newCinema.CinemaLogo,
+                Name = newCinema.Name,
+                Description = newCinema.Description,
+            };
+            cinema = await _unitOfWork.CinemaRepository.Add(cinema);
+            _unitOfWork.Commit();
+            return new CinemaDto
+            {
+                CinemaLogo = cinema.CinemaLogo,
+                Name = newCinema.Name,
+                Description = newCinema.Description,
+            };
+        }
+
         public async Task<IEnumerable<CinemaDto>> GetAllCinemas()
         {
             var cinemas = await _unitOfWork.CinemaRepository.GetAll();
