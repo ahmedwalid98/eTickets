@@ -44,5 +44,21 @@ namespace eTickets.UI.Controllers
             actor = await _actorService.UpdateActor(id, newActor);
             return View(actor);
         }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(ActorReq actor)
+        {
+            if (ModelState.IsValid)
+            {
+                var newActor = await _actorService.AddActor(actor);
+                return RedirectToAction(nameof(Index));
+            }
+            
+            return View();
+        }
     }
 }

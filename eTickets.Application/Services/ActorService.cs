@@ -20,6 +20,24 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<ActorDto> AddActor(ActorReq actor)
+        {
+            var _actor = new Actor
+            {
+                FullName = actor.FullName,
+                ProfilePictureUrl = actor.ProfilePictureUrl,
+                Bio = actor.Bio,
+            };
+            _actor = await _unitOfWork.ActorRepository.Add(_actor);
+            _unitOfWork.Commit();
+            return new ActorDto
+            {
+                FullName = _actor.FullName,
+                ProfilePictureUrl = _actor.ProfilePictureUrl,
+                Bio = _actor.Bio,
+            };
+        }
+
         public async Task<ActorDto> GetActorById(int id)
         {
             var actor = await _unitOfWork.ActorRepository.GetById(id);
