@@ -20,6 +20,23 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
+        public async Task<ProducerDto> AddProducer(ProducerReq newProducer)
+        {
+            var producer = new Producer
+            {
+                ProfilePictureUrl = newProducer.ProfilePictureUrl,
+                FullName = newProducer.FullName,
+                Bio = newProducer.Bio,
+            };
+            producer = await _unitOfWork.ProducerRepository.Add(producer);
+            _unitOfWork.Commit();
+            return new ProducerDto
+            {
+                ProfilePictureUrl = producer.ProfilePictureUrl,
+                FullName = producer.FullName,
+                Bio = producer.Bio,
+            };
+        }
 
         public async Task<IEnumerable<ProducerDto>> GetAllProducers()
         {

@@ -13,5 +13,6 @@ namespace eTickets.Application.Interfaces
         Task<IEnumerable<ProducerDto>> GetAllProducers();
         Task<ProducerDto> GetProducerById(int id);
         Task<ProducerDto> UpdateProducer(int id, ProducerReq newProducer);
+        Task<ProducerDto> AddProducer(ProducerReq newProducer);
     }
 }

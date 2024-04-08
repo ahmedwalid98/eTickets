@@ -37,5 +37,19 @@ namespace eTickets.UI.Controllers
             producer = await _producerService.UpdateProducer(id, newProducer);
             return View(producer);
         }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Create(ProducerReq producer)
+        {
+            if (ModelState.IsValid)
+            {
+                await _producerService.AddProducer(producer);
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
     }
 }
