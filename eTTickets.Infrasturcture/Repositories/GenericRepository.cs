@@ -28,7 +28,7 @@ namespace eTickets.Infrasturcture.Repositories
 
 		public void Delete(T entity)
 		{
-			context.Set<T>().Remove(entity);
+			context.Remove(entity);
 		}
 
 		public async Task<IEnumerable<T>> GetAll()

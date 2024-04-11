@@ -34,6 +34,7 @@ namespace eTickets.UI.Controllers
             return View(actor);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([FromRoute] int id, ActorReq newActor)
         {
             var actor = await _actorService.GetActorById(id);
@@ -50,6 +51,7 @@ namespace eTickets.UI.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ActorReq actor)
         {
             if (ModelState.IsValid)
@@ -59,6 +61,12 @@ namespace eTickets.UI.Controllers
             }
             
             return View();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _actorService.DeleteActor(id);
+            return Ok();
         }
     }
 }
