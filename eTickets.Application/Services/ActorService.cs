@@ -38,6 +38,13 @@ namespace eTickets.Application.Services
             };
         }
 
+        public async Task DeleteActor(int id)
+        {
+            var actor = await _unitOfWork.ActorRepository.GetById(id);
+            _unitOfWork.ActorRepository.Delete(actor);
+            _unitOfWork.Commit();
+        }
+
         public async Task<ActorDto> GetActorById(int id)
         {
             var actor = await _unitOfWork.ActorRepository.GetById(id);

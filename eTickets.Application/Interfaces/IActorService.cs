@@ -15,5 +15,6 @@ namespace eTickets.Application.Interfaces
         Task<ActorDto> GetActorById(int id);
         Task<ActorDto> UpdateActor(int id, ActorReq updateReq);
         Task<ActorDto> AddActor(ActorReq actor);
+        Task DeleteActor(int id);
     }
 }
