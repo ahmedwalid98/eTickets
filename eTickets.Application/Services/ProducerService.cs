@@ -38,6 +38,13 @@ namespace eTickets.Application.Services
             };
         }
 
+        public async Task DeleteProducer(int id)
+        {
+            var producer = await _unitOfWork.ProducerRepository.GetById(id);
+            _unitOfWork.ProducerRepository.Delete(producer);
+            _unitOfWork.Commit();
+        }
+
         public async Task<IEnumerable<ProducerDto>> GetAllProducers()
         {
             var producers = await _unitOfWork.ProducerRepository.GetAll();

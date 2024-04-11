@@ -31,6 +31,7 @@ namespace eTickets.UI.Controllers
             return View(producer);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ProducerReq newProducer)
         {
             var producer = await _producerService.GetProducerById(id);
@@ -42,6 +43,8 @@ namespace eTickets.UI.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProducerReq producer)
         {
             if (ModelState.IsValid)
@@ -50,6 +53,12 @@ namespace eTickets.UI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _producerService.DeleteProducer(id);
+            return Ok();
         }
     }
 }

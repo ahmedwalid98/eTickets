@@ -14,5 +14,6 @@ namespace eTickets.Application.Interfaces
         Task<ProducerDto> GetProducerById(int id);
         Task<ProducerDto> UpdateProducer(int id, ProducerReq newProducer);
         Task<ProducerDto> AddProducer(ProducerReq newProducer);
+        Task DeleteProducer(int id);
     }
 }
