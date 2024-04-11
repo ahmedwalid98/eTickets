@@ -32,6 +32,7 @@ namespace eTickets.UI.Controllers
             return View(cinema);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([FromRoute] int id, CinemaReq newCinema)
             
         {
@@ -49,6 +50,7 @@ namespace eTickets.UI.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CinemaReq newCinema)
         {
             if (ModelState.IsValid)
@@ -57,6 +59,12 @@ namespace eTickets.UI.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View();
+        }
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _cinemaService.DeleteCinema(id);
+            return Ok();
         }
     }
 }

@@ -38,6 +38,13 @@ namespace eTickets.Application.Services
             };
         }
 
+        public async Task DeleteCinema(int id)
+        {
+            var cinema = await _unitOfWork.CinemaRepository.GetById(id);
+            _unitOfWork.CinemaRepository.Delete(cinema);
+            _unitOfWork.Commit();
+        }
+
         public async Task<IEnumerable<CinemaDto>> GetAllCinemas()
         {
             var cinemas = await _unitOfWork.CinemaRepository.GetAll();
