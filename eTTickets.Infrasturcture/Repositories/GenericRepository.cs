@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain.Entities;
@@ -34,24 +35,30 @@ namespace eTickets.Infrasturcture.Repositories
 		public async Task<IEnumerable<T>> GetAll()
 		{
 			
-			
-			if (typeof(T) == typeof(Movie))
-			{
-				return (IEnumerable<T>)await context.Movies.Include(m => m.Cinema).AsNoTracking().ToListAsync();
-
-            }else
-			{
-                return await context.Set<T>().AsNoTracking().ToListAsync();
-            }
+              return await context.Set<T>().AsNoTracking().ToListAsync();
 			
 		}
 
-		public async Task<T> GetById(int id)
+        public async Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = context.Set<T>();
+			query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+			return await query.ToListAsync();
+        }
+
+        public async Task<T> GetById(int id)
 		{
 			return await context.Set<T>().SingleOrDefaultAsync(m => m.Id == id);
 		}
 
-		public T Update(T entity)
+        public async Task<T> GetById(int id, params Expression<Func<T, object>>[] expressions)
+        {
+            IQueryable<T> query = context.Set<T>();
+			query = expressions.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+			return await query.SingleOrDefaultAsync(m => m.Id == id);
+        }
+
+        public T Update(T entity)
 		{
 			context.Set<T>().Update(entity);
 			return entity;

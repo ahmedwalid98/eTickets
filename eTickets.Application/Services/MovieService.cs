@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain;
@@ -19,9 +20,9 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<MoviesDto>> GetAllMovies()
+        public async Task<IEnumerable<MoviesDto>> GetAllMovies(params Expression<Func<Movie, object>>[] expression)
         {
-            var movies = await _unitOfWork.MovieRepository.GetAll();
+            var movies = await _unitOfWork.MovieRepository.GetAll(expression);
 
             var moviesDto = movies.Select(movie => new MoviesDto
             {
@@ -31,10 +32,32 @@ namespace eTickets.Application.Services
                 Name = movie.Name,
                 ImageUrl = movie.ImageUrl,
                 Category = nameof(movie.MovieCategory),
-                CinemaName = movie.Name
+                CinemaName = movie.Cinema.Name
             });
 
             return moviesDto;
+        }
+
+        public async Task<MoviesDto> GetMovieDetail(int id)
+        {
+            var movie = await _unitOfWork.MovieRepository.GetMovieWithDetail(id);
+            var moviesDto = new MoviesDto
+            {
+                Id = movie.Id,
+                Price = movie.Price,
+                Description = movie.Description,
+                Name = movie.Name,
+                ImageUrl = movie.ImageUrl,
+                Category = nameof(movie.MovieCategory),
+                ProducerId = movie.ProducerId,
+                ProducerName = movie.Producer.FullName,
+                CinemaId = movie.CinemaId,
+                CinemaName = movie.Cinema.Name,
+                Actors = movie.MoviesActors.Select(m => m.Actor).ToList()
+            };
+
+            return moviesDto;
+
         }
     }
 }
