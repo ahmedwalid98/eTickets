@@ -28,7 +28,7 @@ namespace eTickets.Application.Services
                 ProfilePictureUrl = actor.ProfilePictureUrl,
                 Bio = actor.Bio,
             };
-            _actor = await _unitOfWork.ActorRepository.Add(_actor);
+            _actor = await _unitOfWork.Repository<Actor>().Add(_actor);
             _unitOfWork.Commit();
             return new ActorDto
             {
@@ -40,14 +40,14 @@ namespace eTickets.Application.Services
 
         public async Task DeleteActor(int id)
         {
-            var actor = await _unitOfWork.ActorRepository.GetById(id);
-            _unitOfWork.ActorRepository.Delete(actor);
+            var actor = await _unitOfWork.Repository<Actor>().GetById(id);
+            _unitOfWork.Repository<Actor>().Delete(actor);
             _unitOfWork.Commit();
         }
 
         public async Task<ActorDto> GetActorById(int id)
         {
-            var actor = await _unitOfWork.ActorRepository.GetById(id);
+            var actor = await _unitOfWork.Repository<Actor>().GetById(id);
             return new ActorDto
             {
                 Id = actor.Id,
@@ -59,7 +59,7 @@ namespace eTickets.Application.Services
 
         public async Task<IEnumerable<ActorDto>> GetAllActors()
         {
-            var actors = await _unitOfWork.ActorRepository.GetAll();
+            var actors = await _unitOfWork.Repository<Actor>().GetAll();
             return actors.Select(x => new ActorDto
             {
                 Id = x.Id,
@@ -71,14 +71,14 @@ namespace eTickets.Application.Services
 
         public async Task<ActorDto> UpdateActor(int id, ActorReq actor)
         {
-            var oldActor = await _unitOfWork.ActorRepository.GetById(id);
+            var oldActor = await _unitOfWork.Repository<Actor>().GetById(id);
 
             if (oldActor != null)
             {
                 oldActor.ProfilePictureUrl = actor.ProfilePictureUrl;
                 oldActor.FullName = actor.FullName;
                 oldActor.Bio = actor.Bio;
-                _unitOfWork.ActorRepository.Update(oldActor);
+                _unitOfWork.Repository<Actor>().Update(oldActor);
                 _unitOfWork.Commit();
             }
             return new ActorDto

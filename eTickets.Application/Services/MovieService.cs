@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain;
 using eTicket.Domain.Entities;
+using eTicket.Domain.Specification.MovieSpecification;
 using eTickets.Application.Core.Dtos;
 using eTickets.Application.Interfaces;
 
@@ -20,9 +21,11 @@ namespace eTickets.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<MoviesDto>> GetAllMovies(params Expression<Func<Movie, object>>[] expression)
+        public async Task<IEnumerable<MoviesDto>> GetAllMovies()
+           
         {
-            var movies = await _unitOfWork.MovieRepository.GetAll(expression);
+            var specs = new MovieSpecs();
+            var movies = await _unitOfWork.Repository<Movie>().GetAll(specs);
 
             var moviesDto = movies.Select(movie => new MoviesDto
             {
@@ -32,7 +35,9 @@ namespace eTickets.Application.Services
                 Name = movie.Name,
                 ImageUrl = movie.ImageUrl,
                 Category = nameof(movie.MovieCategory),
-                CinemaName = movie.Cinema.Name
+                CinemaName = movie.Cinema.Name,
+                StartDate = movie.StartDate,
+                EndDate = movie.EndDate,
             });
 
             return moviesDto;
@@ -40,7 +45,7 @@ namespace eTickets.Application.Services
 
         public async Task<MoviesDto> GetMovieDetail(int id)
         {
-            var movie = await _unitOfWork.MovieRepository.GetMovieWithDetail(id);
+            var movie = await _unitOfWork.Repository<Movie>().GetById(id);
             var moviesDto = new MoviesDto
             {
                 Id = movie.Id,

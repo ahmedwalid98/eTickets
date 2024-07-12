@@ -28,7 +28,7 @@ namespace eTickets.Application.Services
                 Name = newCinema.Name,
                 Description = newCinema.Description,
             };
-            cinema = await _unitOfWork.CinemaRepository.Add(cinema);
+            cinema = await _unitOfWork.Repository<Cinema>().Add(cinema);
             _unitOfWork.Commit();
             return new CinemaDto
             {
@@ -40,14 +40,14 @@ namespace eTickets.Application.Services
 
         public async Task DeleteCinema(int id)
         {
-            var cinema = await _unitOfWork.CinemaRepository.GetById(id);
-            _unitOfWork.CinemaRepository.Delete(cinema);
+            var cinema = await _unitOfWork.Repository<Cinema>().GetById(id);
+            _unitOfWork.Repository<Cinema>().Delete(cinema);
             _unitOfWork.Commit();
         }
 
         public async Task<IEnumerable<CinemaDto>> GetAllCinemas()
         {
-            var cinemas = await _unitOfWork.CinemaRepository.GetAll();
+            var cinemas = await _unitOfWork.Repository<Cinema>().GetAll();
             return cinemas.Select(cinema => new CinemaDto
             {
                 Id = cinema.Id,
@@ -59,7 +59,7 @@ namespace eTickets.Application.Services
 
         public async Task<CinemaDto> GetCinema(int id)
         {
-            var cinema = await _unitOfWork.CinemaRepository.GetById(id);
+            var cinema = await _unitOfWork.Repository<Cinema>().GetById(id);
             return new CinemaDto
             {
                 Id = cinema.Id,
@@ -71,13 +71,13 @@ namespace eTickets.Application.Services
 
         public async Task<CinemaDto> UpdateCinema(int id, CinemaReq newCinema)
         {
-            var cinema = await _unitOfWork.CinemaRepository.GetById(id);
+            var cinema = await _unitOfWork.Repository<Cinema>().GetById(id);
             if (newCinema != null)
             {
                 cinema.CinemaLogo = newCinema.CinemaLogo;
                 cinema.Name = newCinema.Name;
                 cinema.Description = newCinema.Description;
-                _unitOfWork.CinemaRepository.Update(cinema);
+                _unitOfWork.Repository<Cinema>().Update(cinema);
                 _unitOfWork.Commit();
             }
             return new CinemaDto

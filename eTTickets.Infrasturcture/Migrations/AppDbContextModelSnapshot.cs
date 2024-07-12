@@ -22,7 +22,57 @@ namespace eTickets.Infrasturcture.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("eTickets.Domain.Entities.Movie", b =>
+            modelBuilder.Entity("eTicket.Domain.Entities.Actor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfilePictureUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Actors");
+                });
+
+            modelBuilder.Entity("eTicket.Domain.Entities.Cinema", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CinemaLogo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cinemas");
+                });
+
+            modelBuilder.Entity("eTicket.Domain.Entities.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,7 +119,7 @@ namespace eTickets.Infrasturcture.Migrations
                     b.ToTable("Movies");
                 });
 
-            modelBuilder.Entity("eTickets.Domain.Entities.MovieActor", b =>
+            modelBuilder.Entity("eTicket.Domain.Entities.MovieActor", b =>
                 {
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
@@ -84,7 +134,7 @@ namespace eTickets.Infrasturcture.Migrations
                     b.ToTable("MoviesActors");
                 });
 
-            modelBuilder.Entity("eTickets.Domain.Models.Actor", b =>
+            modelBuilder.Entity("eTicket.Domain.Entities.Producer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,57 +148,8 @@ namespace eTickets.Infrasturcture.Migrations
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfilePictureUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Actors");
-                });
-
-            modelBuilder.Entity("eTickets.Domain.Models.Cinema", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CinemaLogo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cinemas");
-                });
-
-            modelBuilder.Entity("eTickets.Domain.Models.Producer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Bio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ProfilePictureUrl")
                         .IsRequired()
@@ -159,15 +160,15 @@ namespace eTickets.Infrasturcture.Migrations
                     b.ToTable("Producers");
                 });
 
-            modelBuilder.Entity("eTickets.Domain.Entities.Movie", b =>
+            modelBuilder.Entity("eTicket.Domain.Entities.Movie", b =>
                 {
-                    b.HasOne("eTickets.Domain.Models.Cinema", "Cinema")
+                    b.HasOne("eTicket.Domain.Entities.Cinema", "Cinema")
                         .WithMany("Movies")
                         .HasForeignKey("CinemaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eTickets.Domain.Models.Producer", "Producer")
+                    b.HasOne("eTicket.Domain.Entities.Producer", "Producer")
                         .WithMany("Movies")
                         .HasForeignKey("ProducerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -178,15 +179,15 @@ namespace eTickets.Infrasturcture.Migrations
                     b.Navigation("Producer");
                 });
 
-            modelBuilder.Entity("eTickets.Domain.Entities.MovieActor", b =>
+            modelBuilder.Entity("eTicket.Domain.Entities.MovieActor", b =>
                 {
-                    b.HasOne("eTickets.Domain.Models.Actor", "Actor")
+                    b.HasOne("eTicket.Domain.Entities.Actor", "Actor")
                         .WithMany("MoviesActors")
                         .HasForeignKey("ActorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("eTickets.Domain.Entities.Movie", "Movie")
+                    b.HasOne("eTicket.Domain.Entities.Movie", "Movie")
                         .WithMany("MoviesActors")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -197,22 +198,22 @@ namespace eTickets.Infrasturcture.Migrations
                     b.Navigation("Movie");
                 });
 
-            modelBuilder.Entity("eTickets.Domain.Entities.Movie", b =>
+            modelBuilder.Entity("eTicket.Domain.Entities.Actor", b =>
                 {
                     b.Navigation("MoviesActors");
                 });
 
-            modelBuilder.Entity("eTickets.Domain.Models.Actor", b =>
-                {
-                    b.Navigation("MoviesActors");
-                });
-
-            modelBuilder.Entity("eTickets.Domain.Models.Cinema", b =>
+            modelBuilder.Entity("eTicket.Domain.Entities.Cinema", b =>
                 {
                     b.Navigation("Movies");
                 });
 
-            modelBuilder.Entity("eTickets.Domain.Models.Producer", b =>
+            modelBuilder.Entity("eTicket.Domain.Entities.Movie", b =>
+                {
+                    b.Navigation("MoviesActors");
+                });
+
+            modelBuilder.Entity("eTicket.Domain.Entities.Producer", b =>
                 {
                     b.Navigation("Movies");
                 });

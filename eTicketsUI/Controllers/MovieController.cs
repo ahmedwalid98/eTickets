@@ -15,7 +15,7 @@ namespace eTickets.UI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var movies = await _movieService.GetAllMovies(m => m.Cinema);
+            var movies = await _movieService.GetAllMovies();
             
             return View(movies);
         }
@@ -25,5 +25,10 @@ namespace eTickets.UI.Controllers
            var movie = await _movieService.GetMovieDetail(id); 
            return View(movie);
         }
+        [HttpGet]
+        public  IActionResult Create() {
+            return View();
+        }
+        
     }
 }

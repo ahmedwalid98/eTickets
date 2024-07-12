@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eTicket.Domain.Entities;
 using eTicket.Domain.Repositories;
+using eTicket.Domain.Specification;
 using eTickets.Infrasturcture.Data;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -39,11 +40,9 @@ namespace eTickets.Infrasturcture.Repositories
 			
 		}
 
-        public async Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includeProperties)
+        public async Task<IEnumerable<T>> GetAll(ISpecification<T> specs)
         {
-            IQueryable<T> query = context.Set<T>();
-			query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-			return await query.ToListAsync();
+			return await ApplySpecification(specs).ToListAsync();
         }
 
         public async Task<T> GetById(int id)
@@ -62,6 +61,11 @@ namespace eTickets.Infrasturcture.Repositories
 		{
 			context.Set<T>().Update(entity);
 			return entity;
+		}
+
+		private IQueryable<T> ApplySpecification(ISpecification<T> specs)
+		{
+			return SpecificationEvaluator<T>.GetQuery(context.Set<T>().AsQueryable(), specs);
 		}
 	}
 }

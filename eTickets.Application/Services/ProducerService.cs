@@ -28,7 +28,7 @@ namespace eTickets.Application.Services
                 FullName = newProducer.FullName,
                 Bio = newProducer.Bio,
             };
-            producer = await _unitOfWork.ProducerRepository.Add(producer);
+            producer = await _unitOfWork.Repository<Producer>().Add(producer);
             _unitOfWork.Commit();
             return new ProducerDto
             {
@@ -40,14 +40,14 @@ namespace eTickets.Application.Services
 
         public async Task DeleteProducer(int id)
         {
-            var producer = await _unitOfWork.ProducerRepository.GetById(id);
-            _unitOfWork.ProducerRepository.Delete(producer);
+            var producer = await _unitOfWork.Repository<Producer>().GetById(id);
+            _unitOfWork.Repository<Producer>().Delete(producer);
             _unitOfWork.Commit();
         }
 
         public async Task<IEnumerable<ProducerDto>> GetAllProducers()
         {
-            var producers = await _unitOfWork.ProducerRepository.GetAll();
+            var producers = await _unitOfWork.Repository<Producer>().GetAll();
             return producers.Select(x => new ProducerDto 
             {
                 Id = x.Id,
@@ -59,7 +59,7 @@ namespace eTickets.Application.Services
 
         public async Task<ProducerDto> GetProducerById(int id)
         {
-            var producer = await _unitOfWork.ProducerRepository.GetById(id);
+            var producer = await _unitOfWork.Repository<Producer>().GetById(id);
             return new ProducerDto
             {
                 Id = producer.Id,
@@ -71,13 +71,13 @@ namespace eTickets.Application.Services
 
         public async Task<ProducerDto> UpdateProducer(int id, ProducerReq newProducer)
         {
-            var producer = await _unitOfWork.ProducerRepository.GetById(id);
+            var producer = await _unitOfWork.Repository<Producer>().GetById(id);
             if (producer != null)
             {
                 producer.FullName = newProducer.FullName;
                 producer.Bio = newProducer.Bio;
                 producer.ProfilePictureUrl = newProducer.ProfilePictureUrl;
-                _unitOfWork.ProducerRepository.Update(producer);
+                _unitOfWork.Repository<Producer>().Update(producer);
                 _unitOfWork.Commit();
             }
             return new ProducerDto

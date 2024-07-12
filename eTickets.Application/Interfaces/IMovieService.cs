@@ -1,4 +1,5 @@
 ﻿using eTicket.Domain.Entities;
+using eTicket.Domain.Specification;
 using eTickets.Application.Core.Dtos;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace eTickets.Application.Interfaces
 {
     public interface IMovieService
     {
-        Task<IEnumerable<MoviesDto>> GetAllMovies(params Expression<Func<Movie, object>>[] expression);
+        Task<IEnumerable<MoviesDto>> GetAllMovies();
         Task<MoviesDto> GetMovieDetail(int id);
     }
 }
