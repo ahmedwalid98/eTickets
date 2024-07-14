@@ -14,20 +14,20 @@ namespace eTickets.Infrasturcture
         public static IQueryable<T> GetQuery(IQueryable<T> inputQuery, ISpecification<T> specs)
         {
             var query = inputQuery;
-            if(specs.Criteria != null)
+            if(specs.Criteria is not null)
             {
-                query.Where(specs.Criteria);
+                query = query.Where(specs.Criteria);
             }
-            if(specs.GroupBy != null)
+            if(specs.GroupBy is not null)
                 query.GroupBy(specs.GroupBy);
-            if(specs.OrderBy != null)
-                query.OrderBy(specs.OrderBy);
+            if(specs.OrderBy is not null)
+                query = query.OrderBy(specs.OrderBy);
 
-            if(specs.OrderByDescending != null)
-                query.OrderByDescending(specs.OrderByDescending);
+            if(specs.OrderByDescending is not null)
+                query = query.OrderByDescending(specs.OrderByDescending);
             if(specs.IsPagingEnabled)
             {
-                query.Skip(specs.Skip).Take(specs.Take);
+                query = query.Skip(specs.Skip).Take(specs.Take);
             }
             query = specs.Includes.Aggregate(query, (current, includeExpression) => current.Include(includeExpression));
             query = specs.IncludeString.Aggregate(query,

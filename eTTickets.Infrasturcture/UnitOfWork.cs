@@ -35,7 +35,7 @@ namespace eTickets.Infrasturcture
             _context.Dispose();
         }
 
-        public IGenericRepository<T> Repository<T>() where T : BaseEntity
+        public IGenericRepository<T> Repository<T>() where T : BaseEntity   
         {
             var key = typeof(T).Name;
             if (!_repositories.ContainsKey(key))

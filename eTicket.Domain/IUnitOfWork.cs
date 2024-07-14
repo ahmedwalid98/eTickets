@@ -10,7 +10,7 @@ namespace eTicket.Domain
 {
 	public interface IUnitOfWork: IDisposable
 	{
-        IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity;
+        IGenericRepository<T> Repository<T>() where T : BaseEntity;
         int Commit();
 
 	}

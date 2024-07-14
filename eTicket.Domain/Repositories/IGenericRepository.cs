@@ -14,7 +14,7 @@ namespace eTicket.Domain.Repositories
 		Task<IEnumerable<T>> GetAll();
         Task<IEnumerable<T>> GetAll(ISpecification<T> spec = null);
         Task<T> GetById(int id);
-        Task<T> GetById(int id, params Expression<Func<T, object>>[] expressions);
+        Task<T> GetById(int id, ISpecification<T> spec = null);
         Task<T> Add(T entity);
 		T Update(T entity);
 		void Delete(T entity);

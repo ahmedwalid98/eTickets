@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace eTicket.Domain.Specification.MovieSpecification
 {
-    public class MovieSpecs: Specification<Movie>
+    public class GetMovieWithActorsCinemaProducer : Specification<Movie>
     {
-        public MovieSpecs(): base() 
+        public GetMovieWithActorsCinemaProducer(): base() 
         {
             AddInclude(m => m.Cinema);
             AddInclude(m => m.Producer);

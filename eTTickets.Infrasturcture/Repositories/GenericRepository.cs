@@ -50,11 +50,9 @@ namespace eTickets.Infrasturcture.Repositories
 			return await context.Set<T>().SingleOrDefaultAsync(m => m.Id == id);
 		}
 
-        public async Task<T> GetById(int id, params Expression<Func<T, object>>[] expressions)
+        public async Task<T> GetById(int id, ISpecification<T> specs)
         {
-            IQueryable<T> query = context.Set<T>();
-			query = expressions.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
-			return await query.SingleOrDefaultAsync(m => m.Id == id);
+			return await ApplySpecification(specs).SingleOrDefaultAsync(m => m.Id == id);
         }
 
         public T Update(T entity)

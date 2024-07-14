@@ -8,15 +8,13 @@ using System.Threading.Tasks;
 
 namespace eTicket.Domain.Specification
 {
-    public abstract class Specification<T> : ISpecification<T> where T : BaseEntity
+    public class Specification<T> : ISpecification<T> where T : BaseEntity
     {
-        protected Specification(Expression<Func<T, bool>> criteria) {
-            Criteria = criteria;
-        }
-        protected Specification() { }
-        public Expression<Func<T, bool>> Criteria { get; }
-        public List<Expression<Func<T, object>>> Includes { get; } = [];
-        public List<string> IncludeString { get; } = new List<string>();
+       
+        
+        public Expression<Func<T, bool>> Criteria { get; set; }
+        public List<Expression<Func<T, object>>> Includes { get; set; } = [];
+        public List<string> IncludeString { get; set; } = new List<string>();
 
         public Expression<Func<T, object>> OrderBy {  get;private set; }
 
@@ -27,7 +25,11 @@ namespace eTicket.Domain.Specification
         public int Take {  get; private set; }
 
         public int Skip {  get; private set; }
-
+        public Specification() { }
+        public Specification(Expression<Func<T, bool>> criteria)
+        {
+            Criteria = criteria;
+        }
         public bool IsPagingEnabled { get; private set; } = false;
         protected void AddInclude(Expression<Func<T, object>> includeExpression)
         {
